@@ -42,4 +42,4 @@ Commandes utilisées : `setfacl`, `getfacl`.
 ## Exécution
 Pour exécuter le script, assurez-vous de disposer des droits d'administration et lancez-le comme suit :
 ```bash
-sudo ./gestion_utilisateurs.sh
+sudo ./gestion_user_groupe_pme.sh
