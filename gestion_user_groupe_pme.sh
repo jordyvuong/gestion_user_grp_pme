@@ -152,7 +152,7 @@ supprimer_groupe() {
 # Vérifier si le groupe existe et s'il est vide, puis le supprimer
 if getent group "$groupe" > /dev/null 2>&1; then 
     gid=$(getent group "$groupe" | cut -d: -f3)  # Récupérer le GID du groupe
-    if [ -z "$(getent passwd | awk -F: -v gid="$gid" '$4 == gid')" ]; then #awk est un outil en ligne de commande qui permet de lire un fichier texte, extraire des informations spécifiques, et modifier ou transformer les données en fonction de certaines conditions. -v pour définir une variable. -z pour vérifier si la chaîne est vide. -F pour définir le délimiteur.
+    if [ -z "$(getent passwd | cut -d: -f4)"]; then #awk est un outil en ligne de commande qui permet de lire un fichier texte, extraire des informations spécifiques, et modifier ou transformer les données en fonction de certaines conditions. -v pour définir une variable. -z pour vérifier si la chaîne est vide. -F pour définir le délimiteur.
         sudo groupdel "$groupe"
         echo "Le groupe $groupe a été supprimé car il est vide."
     else
