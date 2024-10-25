@@ -46,7 +46,7 @@ backup_home_directory() {  #fonction pour sauvegarder le répertoire personnel d
     
     if [ -d "/home/$user" ]; then # -d permet de vérifier si le répertoire existe.
         echo "Sauvegarde du répertoire personnel de l'utilisateur $user..."
-        tar -czf "/backup/$user-home-$(date +%Y%m%d).tar.gz" "/home/$user" #tar permet de compresser des fichiers et répertoires, -c pour créer une archive, -z pour compresser avec gzip, -f pour spécifier le nom du fichier d'archive.
+        sudo tar -czf "/backup/$user-home-$(date +%Y%m%d).tar.gz" "/home/$user" #tar permet de compresser des fichiers et répertoires, -c pour créer une archive, -z pour compresser avec gzip, -f pour spécifier le nom du fichier d'archive.
         echo "Sauvegarde terminée : /backup/$user-home-$(date +%Y%m%d).tar.gz"
     else
         echo "Répertoire personnel de l'utilisateur $user introuvable."
@@ -150,9 +150,9 @@ supprimer_groupe() {
     read groupe
 
 # Vérifier si le groupe existe et s'il est vide, puis le supprimer
-if getent group "$groupe" > /dev/null 2>&1; then
+if getent group "$groupe" > /dev/null 2>&1; then 
     gid=$(getent group "$groupe" | cut -d: -f3)  # Récupérer le GID du groupe
-    if [ -z "$(getent passwd | awk -F: -v gid="$gid" '$4 == gid')" ]; then #awk est un outil de traitement de texte qui permet de rechercher et de remplacer des données dans un fichier texte. -v pour définir une variable.
+    if [ -z "$(getent passwd | awk -F: -v gid="$gid" '$4 == gid')" ]; then #awk est un outil en ligne de commande qui permet de lire un fichier texte, extraire des informations spécifiques, et modifier ou transformer les données en fonction de certaines conditions. -v pour définir une variable. -z pour vérifier si la chaîne est vide. -F pour définir le délimiteur.
         sudo groupdel "$groupe"
         echo "Le groupe $groupe a été supprimé car il est vide."
     else
